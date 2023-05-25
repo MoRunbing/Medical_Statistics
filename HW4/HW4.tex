@@ -1,0 +1,237 @@
+\documentclass[11pt,a4paper,onside,UTF8]{article}
+\usepackage{geometry}
+	\geometry{left=2cm,right=2cm,top=2.5cm,bottom=3cm}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{lipsum}
+\usepackage{bm}
+\usepackage{upgreek}
+
+\usepackage{amsmath}
+% mathtools for: Aboxed (put box on last equation in align envirenment)
+\usepackage{microtype} %improves the spacing between words and letters
+
+\usepackage{xeCJK,paralist,enumerate,booktabs,multirow,graphicx,float,setspace}
+	\setlength{\parindent}{2em}%正文首行缩进两个汉字
+% \usepackage{ctex}
+%     \setmainfont{Times New Roman}
+
+%% COLOR DEFINITIONS
+
+\usepackage[svgnames]{xcolor} % Enabling mixing colors and color's call by 'svgnames'
+
+\definecolor{MyColor1}{rgb}{0.2,0.4,0.6} %mix personal color
+\newcommand{\textb}{\color{Black} \usefont{OT1}{lmss}{m}{n}}
+\newcommand{\blue}{\color{MyColor1} \usefont{OT1}{lmss}{m}{n}}
+\newcommand{\blueb}{\color{MyColor1} \usefont{OT1}{lmss}{b}{n}}
+\newcommand{\red}{\color{LightCoral} \usefont{OT1}{lmss}{m}{n}}
+\newcommand{\green}{\color{Turquoise} \usefont{OT1}{lmss}{m}{n}}
+
+\DeclareMathOperator{\trace}{trace}
+\DeclareMathOperator{\diag}{diag}
+
+%% FONTS AND COLORS
+
+%    SECTIONS
+
+\usepackage{titlesec}
+	\newfontfamily\sectionef{Times New Roman}
+	\setCJKfamilyfont{FZHeiTi}{黑体}
+	\newcommand{\sectioncf}{\CJKfamily{FZHeiTi}}
+	\titleformat*{\section}{\large\bfseries\sectioncf\sectionef}
+	\titleformat*{\subsection}{\normalsize\bfseries\sectioncf\sectionef}
+\usepackage{sectsty}
+%%%%%%%%%%%%%%%%%%%%%%%%
+%set section/subsections HEADINGS font and color
+\sectionfont{\color{MyColor1} \usefont{OT1}{lmss}{b}{n}}  % sets colour of sections
+\subsectionfont{\color{MyColor1}\usefont{OT1}{lmss}{b}{n}}  % sets colour of sections
+
+%set section enumerator to arabic number (see footnotes markings alternatives)
+\renewcommand\thesection{\arabic{section}.} %define sections numbering
+\renewcommand\thesubsection{\thesection\arabic{subsection}} %subsec.num.
+
+%define new section style
+\newcommand{\mysection}{
+\titleformat{\section} [runin] {\usefont{OT1}{lmss}{b}{n}\color{MyColor1}} 
+{\thesection} {3pt} {} } 
+
+
+%	CAPTIONS
+\usepackage{caption}
+\usepackage{subcaption}
+%%%%%%%%%%%%%%%%%%%%%%%%
+% \captionsetup[figure]{labelfont={color=Turquoise}}
+
+
+%		!!!EQUATION (ARRAY) --> USING ALIGN INSTEAD
+%using amsmath package to redefine eq. numeration (1.1, 1.2, ...) 
+\renewcommand{\theequation}{\thesection\arabic{equation}}
+
+
+
+\makeatletter
+\let\reftagform@=\tagform@
+\def\tagform@#1{\maketag@@@{(\ignorespaces\textcolor{red}{#1}\unskip\@@italiccorr)}}
+\renewcommand{\eqref}[1]{\textup{\reftagform@{\ref{#1}}}}
+\makeatother
+\usepackage[colorlinks,linkcolor=blue,urlcolor=blue]{hyperref}%超链接
+
+% For labeling top of page on every page but first one:
+\usepackage{fancyhdr}
+
+% PREPARE TITLE:
+\title{\blue Medical Statistics \\
+\blueb Homework 4}
+\author{实验2班 ~~ 莫润冰 ~~ 20980131}
+\date{}
+
+\renewcommand{\rmdefault}{phv} % Arial Font
+\renewcommand{\sfdefault}{phv} % Arial Font
+\usepackage{datetime}
+
+\pagestyle{fancy}
+\fancyhead{}
+% \fancyhead[CO,CE]{{\small{{\bf{Homework Number}} - Class Name - Semester - Your Name}}}
+\fancyhead[L]{Medical Statistics}
+\fancyhead[R]{\shortmonthname[\the\month], \the\year}
+\fancyhead[C]{
+\normalsize{HW1}
+}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+	language=R,                % the language of the code
+	basicstyle={\footnotesize\usefont{OT1}{lmss}{m}{n}},           % the size of the fonts that are used for the code
+	numbers=left,                   % where to put the line-numbers
+	numberstyle=\tiny\color{gray},  % the style that is used for the line-numbers
+	stepnumber=1,                   % the step between two line-numbers. If it's 1, each line 
+									% will be numbered
+	numbersep=5pt,                  % how far the line-numbers are from the code
+	backgroundcolor=\color{white},      % choose the background color. You must add \usepackage{color}
+	showspaces=false,               % show spaces adding particular underscores
+	showstringspaces=false,         % underline spaces within strings
+	showtabs=false,                 % show tabs within strings adding particular underscores
+	frame=single,                   % adds a frame around the code
+	rulecolor=\color{black},        % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. commens (green here))
+	tabsize=2,                      % sets default tabsize to 2 spaces
+	captionpos=b,                   % sets the caption-position to bottom
+	breaklines=true,                % sets automatic line breaking
+	breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+	title=\lstname,                   % show the filename of files included with \lstinputlisting;
+									% also try caption instead of title
+	keywordstyle=\color{red},          % keyword style
+	commentstyle=\color[cmyk]{1,0,1,0},       % comment style
+	stringstyle=\color{MyColor1},         % string literal style
+	escapeinside={\%*}{*)},            % if you want to add LaTeX within your code
+	morekeywords={*,...}               % if you want to add more keywords to the set
+}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\footnotetext[1]{Github repo: \url{https://github.com/MoRunbing/Medical_Statistics }}
+\footnotetext[2]{E-mail: \url{morb@mail2.sysu.edu.cn}}
+
+\section{Exercise 1} 
+\subsection{The $t$ Test for Comparing Two Means}
+
+The cholesterol (mmol/L) is a continuous value with a normal distribution in population.
+24 volunteers recruited were completely randomly divided into two groups with 12 individuals for each.
+If we want to judge whether the pre-study cholesterol level for the two treatments are equal on average,
+the $t$ test for data of two pre-study cholesterol level under completely randomized design can be used.
+
+First, we perform an $F$ test to see if two cholesterol level variances are equal. 
+The null hypothesis is $H_0: \sigma_1^2=\sigma_2^2$, the alternative hypothesis is $H_1: \sigma_1^2 \neq \sigma_2^2$. 
+The value $F\approx \frac{S_1^2}{S_2^2} = 0.344$, $P=0.564 \textgreater 0.1$.
+As a result, we cannot reject null hypothesis. That is to say, the difference between two cholesterol level variances is not statistically significant.
+
+It is reasonable to assume that $\sigma_1^2=\sigma_2^2$, since the difference between two cholesterol level variancess is not statistically significant 
+and $S_1^2$ and $S_2^2$ are close to each other. ($S_1^2=0.74$, $S_2^2=0.61$)
+
+Then we perform the $t$ test for the data of two pre-study cholesterol level. 
+The null hypothesis and alternative hypothesis are:
+\begin{equation}
+	H_0: \mu_1=\mu_2, \ H_1: \mu_1 \neq \mu_2
+\end{equation}
+
+\begin{equation}
+	S_c^2=\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-1}
+\end{equation}
+\begin{equation}
+	t=\frac{\bar{X_1}-\bar{X_2}}{\sqrt{S_c^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}=0.219
+\end{equation}
+\begin{equation}
+	\nu = n_1+n_2-1=23
+\end{equation}
+
+Check up the table of $t$ distribution, $P = 0.829 \textgreater 0.05$. Do not reject the null hypothesis.
+The difference between the pre-study cholesterol level means of two treatments is not statistically significant.
+ 
+\subsection{The $t$ Test for Data under Randomized Paired Design}
+Whether the two treatments are effective can be analysed using the cholesterol level differences of pre-study and post-study, set as $d$.
+Assuming $d$ follows a normal distribution, a zero mean will indicate that the treatment is not effective.
+Denote the population mean of $d$ with $\mu_d$.
+\begin{equation}
+	H_0: \mu_d=0, \ H_1: \mu_d \neq 0
+\end{equation}
+\begin{equation}
+	S_d=\frac{\left[\Sigma d_i^2-\frac{1}{n}\left(\Sigma d_i\right)^2\right]}{n-1}
+\end{equation}
+\begin{equation}
+	t=\frac{\bar{d}-0}{S_d/\sqrt{n}}
+\end{equation}
+\begin{equation}
+	\nu=n-1
+\end{equation}
+
+For Group A who received a special diet, $t=3.150,$ $P=0.009 \textless 0.05$. Reject the null hypothesis.
+The difference before and after receiving a special diet is statistically significant. That is to say, a special diet is effective in reducing cholesterol level. 
+
+For Group B who received a medical therapy, $t=2.411,$ $P=0.035 \textless 0.05$. Reject the null hypothesis.
+The difference before and after receiving a medical therapy is statistically significant. That is to say, a medical therapy is also effective in reducing cholesterol level. 
+
+\subsection{The $t$ Test for Comparing Two Means of Two Differences}
+To analyse whether the effects on reducing cholesterol are equal on average, 
+we perform a $t$ test for $d$ of two groups under completely randomized design.
+
+First, we perform an $F$ test to see if $d$ variances of two groups are equal.
+The null hypothesis is $H_0: \sigma_1^2=\sigma_2^2$, the alternative hypothesis is $H_1: \sigma_1^2 \neq \sigma_2^2$. 
+The value $F\approx \frac{S_1^2}{S_2^2} = 1.118$, $P=0.302 \textgreater 0.1$.
+As a result, we cannot reject null hypothesis. That is to say, the difference between $d$ variances is not statistically significant.
+
+Then we perform the $t$ test for $d$ under completely randomized design. 
+The null hypothesis and alternative hypothesis are:
+\begin{equation}
+	H_0: \mu_{d1}=\mu_{d2}, \ H_1: \mu_{d1} \neq \mu_{d2}
+\end{equation}
+
+\begin{equation}
+	S_d^2=\frac{(n_1-1)S_{d1}^2+(n_2-1)S_{d2}^2}{n_1+n_2-1}
+\end{equation}
+\begin{equation}
+	t=\frac{\bar{X}_{d1}-\bar{X}_{d2}}{\sqrt{S_d^2\left(\frac{1}{n_1}+\frac{1}{n_2}\right)}}=-1.773
+\end{equation}
+\begin{equation}
+	\nu = n_1+n_2-1=23
+\end{equation}
+
+Check up the table of $t$ distribution, $P = 0.090 \textgreater 0.05$. 
+The difference between the differences before and after two treatments is not statistically significant.
+As a result, there is no significant difference between effects on reducing cholesterol of a special diet and a medical therapy.
+
+
+
+
+
+\end{document}
